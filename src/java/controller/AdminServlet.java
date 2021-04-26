@@ -37,10 +37,10 @@ import session.OrderManager;
                            "/admin/customerRecord",
                            "/admin/orderRecord",
                            "/admin/logout"})
-@ServletSecurity(
+/*@ServletSecurity(
     @HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,
                     rolesAllowed = {"affableBeanAdmin"})
-)
+)*/
 public class AdminServlet extends HttpServlet {
 
     @EJB
