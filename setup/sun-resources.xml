@@ -26,7 +26,7 @@
                         connection-leak-reclaim="false"
                         connection-leak-timeout-in-seconds="0"
                         connection-validation-method="auto-commit"
-                        datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+                        datasource-classname="com.mysql.cj.jdbc.MysqlDataSource"
                         fail-all-connections="false"
                         idle-timeout-in-seconds="300"
                         is-connection-validation-required="false"
@@ -48,7 +48,9 @@
 
     <description>Connects to the affablebean database</description>
     <property name="URL" value="jdbc:mysql://localhost:3306/affablebean"/>
-    <property name="User" value="affablebean"/>
-    <property name="Password" value="aKtr+wp34Z"/>
+    <!--<property name="User" value="affablebean"/>
+    <property name="Password" value="aKtr+wp34Z"/>!-->
+    <property name="User" value="root"/>
+    <property name="Password" value="nbuser"/>
   </jdbc-connection-pool>
 </resources>
