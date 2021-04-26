@@ -76,7 +76,7 @@ public class AdminServlet extends HttpServlet {
             request.setAttribute("customerList", customerList);
         }
 
-        // if viewOrders is requested
+       // if viewOrders is requested
         if (userPath.equals("/admin/viewOrders")) {
             orderList = customerOrderFacade.findAll();
             request.setAttribute("orderList", orderList);
