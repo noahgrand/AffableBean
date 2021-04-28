@@ -14,8 +14,55 @@
 
     <p><a href="<c:url value='viewOrders'/>">view all orders</a></p>
 
+    <p><a href="<c:url value='kategorienverwaltung'/>">Verwalte Kategorien</p>
+
+    <p><a href="<c:url value='artikelverwaltung'/>">Verwalte Artikel</p>
+
     <p><a href="<c:url value='logout'/>">log out</a></p>
+
+    <!--<p><a href="<c:url value='Kategorienverwaltung.jsp'/>">Verwalte Kategorien</p>-->
+   
 </div>
+
+
+<%-- categoryList is requested --%>
+<c:if test="${!empty categoryList}">
+
+	<form action="changekategorie">
+    <table id="adminTable" class="detailsTable">
+
+        <tr class="header">
+            <th colspan="4">categories</th>
+        </tr>
+
+        <tr class="tableHeading">
+            <td>category id</td>
+            <td>name</td>
+        </tr>
+
+        <c:forEach var="category" items="${categoryList}" varStatus="iter">
+
+            <tr class="${((iter.index % 2) == 1) ? 'lightBlue' : 'white'} tableRow"
+		>
+
+              <%-- Below anchor tags are provided in case JavaScript is disabled --%>
+                <!--<td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.name}</a></td>!-->
+                <td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.id}</a></td>
+		<td><input type="text" name="${category.id}" value="${category.name}"></td>
+                <!--<td><input type="text" name="name" value="${category.name}" /></td>-->
+            </tr>
+
+        </c:forEach>
+	    <td><input type="text" name="addthis" value="Neue Kategorie"/></td>
+    </table>
+
+	<input type="submit" value="Änderungen übernehmen"/>
+	</form>	
+</c:if>
+
+
+
+
 
 <%-- customerList is requested --%>
 <c:if test="${!empty customerList}">

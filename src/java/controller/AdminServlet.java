@@ -22,6 +22,7 @@ import javax.servlet.annotation.ServletSecurity.TransportGuarantee;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.servlet.http.HttpSession;
+import session.CategoryFacade;
 import session.CustomerFacade;
 import session.CustomerOrderFacade;
 import session.OrderManager;
@@ -36,6 +37,11 @@ import session.OrderManager;
                            "/admin/viewCustomers",
                            "/admin/customerRecord",
                            "/admin/orderRecord",
+                           "/admin/bestandesverwaltung",
+                           "/admin/changekategorie",
+                           "/admin/kategorienverwaltung",
+                           "/admin/artikelverwaltung",
+                           "/admin/changeartikel",
                            "/admin/logout"})
 /*@ServletSecurity(
     @HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,
@@ -49,12 +55,16 @@ public class AdminServlet extends HttpServlet {
     private CustomerFacade customerFacade;
     @EJB
     private CustomerOrderFacade customerOrderFacade;
+    @EJB
+    private CategoryFacade categoryFacade;
+
 
     private String userPath;
     private Customer customer;
     private CustomerOrder order;
     private List orderList = new ArrayList();
     private List customerList = new ArrayList();
+    private List categoryList =new ArrayList();
 
 
     /**
@@ -75,6 +85,39 @@ public class AdminServlet extends HttpServlet {
             customerList = customerFacade.findAll();
             request.setAttribute("customerList", customerList);
         }
+
+	// if kategorienVerwaltung is requested
+        if (userPath.equals("/admin/kategorienverwaltung")) {
+	    categoryList = categoryFacade.findAll();
+            request.setAttribute("categoryList", categoryList);
+        }
+
+	// if changekategorie is requested
+        if (userPath.equals("/admin/changekategorie")) {
+	    categoryList = categoryFacade.findAll();
+            String categoryId = request.getQueryString();
+	    for(int i=0;i<categoryList.size();i++){
+		    if(!((entity.Category)categoryList.get(i)).getName().equals(request.getParameter(Integer.toString(i+1)))){
+			  //System.out.println(((entity.Category)categoryList.get(i)).getName()+" ::: "+request.getParameter(Integer.toString(i+1)) );
+((entity.Category)categoryList.get(i)).setName(request.getParameter(Integer.toString(i+1)));
+categoryFacade.edit((entity.Category)categoryList.get(i));
+
+		    }	    }
+		
+	    //checkt if eine neue kategorie soll hinzugefügt werden
+	    if(!request.getParameter("addthis").equals("Neue Kategorie")){
+		    System.out.println(request.getParameter("addthis"));
+		    Short newId = 0;
+		    newId=Short.parseShort(Integer.toString(((entity.Category)categoryList.get(categoryList.size()-1)).getId()+1));
+		    categoryFacade.create(new entity.Category(null,request.getParameter("addthis")));
+	    }
+	    categoryList = categoryFacade.findAll();
+            request.setAttribute("categoryList", categoryList);
+        }
+
+	
+	
+
 
        // if viewOrders is requested
         if (userPath.equals("/admin/viewOrders")) {
