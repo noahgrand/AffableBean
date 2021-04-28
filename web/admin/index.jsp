@@ -46,8 +46,10 @@
 		>
 
               <%-- Below anchor tags are provided in case JavaScript is disabled --%>
+                <!--<td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.name}</a></td>!-->
                 <td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.id}</a></td>
 		<td><input type="text" name="${category.id}" value="${category.name}"></td>
+                <!--<td><input type="text" name="name" value="${category.name}" /></td>-->
             </tr>
 
         </c:forEach>
@@ -58,48 +60,7 @@
 	</form>	
 </c:if>
 
-<%-- artikelList is requested --%>
-<c:if test="${!empty artikelList}">
 
-	<form action="changeartikel">
-    <table id="adminTable" class="detailsTable">
-
-        <tr class="header">
-            <th colspan="4">artikel</th>
-        </tr>
-
-        <tr class="tableHeading">
-            <td>product id</td>
-            <td>name</td>
-            <td>price</td>
-            <td>stock</td>
-            <td>kategorie</td>
-        </tr>
-
-        <c:forEach var="artikel" items="${artikelList}" varStatus="iter">
-
-            <tr class="${((iter.index % 2) == 1) ? 'lightBlue' : 'white'} tableRow"
-		>
-
-              <%-- Below anchor tags are provided in case JavaScript is disabled --%>
-                <td><a href="artikelverwaltung?${artikel.id}" class="noDecoration">${artikel.id}</a></td>
-		<td><input type="text" name="${artikel.id}.name" value="${artikel.name}"></td>
-		<td><input type="text" name="${artikel.id}.price" value="${artikel.price}"></td>
-		<%--<td><input type="text" name="${artikel.id}" value="${artikel.stock}"></td>>--%>
-		<td><input type="text" name="${artikel.id}.category" value="${artikel.category.getName()}"></td>
-            </tr>
-
-        </c:forEach>
-	        </table>
-
-	    <td><input type="text" name="addthis" value="Neuer Name"/></td>
-	    <td><input type="text" name="addthis" value="Neuer Preis"/></td>
-	    <td><input type="text" name="addthis" value="Neuer Stock"/></td>
-	    <td><input type="text" name="addthis" value="Neue Kategorie"/></td>
-	    <input type="submit" value="Änderungen übernehmen"/>
-
-	</form>	
-</c:if>
 
 
 
