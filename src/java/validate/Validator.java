@@ -60,7 +60,7 @@ public class Validator {
         boolean addressError;
         boolean cityRegionError;
         boolean ccNumberError;
-
+        
         if (name == null
                 || name.equals("")
                 || name.length() > 45) {

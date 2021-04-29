@@ -45,12 +45,14 @@ public class OrderManager {
     private CustomerOrderFacade customerOrderFacade;
     @EJB
     private OrderedProductFacade orderedProductFacade;
+    @EJB
+    private CustomerFacade customerFacade;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public int placeOrder(String name, String email, String phone, String address, String cityRegion, String ccNumber, ShoppingCart cart) {
+    public int placeOrder(String name, String email, String phone, String address, String cityRegion, String ccNumber, String password,ShoppingCart cart) {
 
         try {
-            Customer customer = addCustomer(name, email, phone, address, cityRegion, ccNumber);
+            Customer customer = customerFacade.addCustomer(name, email, phone, address, cityRegion, ccNumber, password);
             CustomerOrder order = addOrder(customer, cart);
             addOrderedItems(order, cart);
             return order.getId();
@@ -60,19 +62,7 @@ public class OrderManager {
         }
     }
 
-    private Customer addCustomer(String name, String email, String phone, String address, String cityRegion, String ccNumber) {
-
-        Customer customer = new Customer();
-        customer.setName(name);
-        customer.setEmail(email);
-        customer.setPhone(phone);
-        customer.setAddress(address);
-        customer.setCityRegion(cityRegion);
-        customer.setCcNumber(ccNumber);
-
-        em.persist(customer);
-        return customer;
-    }
+    
 
     private CustomerOrder addOrder(Customer customer, ShoppingCart cart) {
 

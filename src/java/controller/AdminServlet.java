@@ -29,7 +29,7 @@ import session.ProductFacade;
 
 /**
  *
- * @author tgiunipero
+ * @author 
  */
 @WebServlet(name = "AdminServlet",
 	urlPatterns = {"/admin/",

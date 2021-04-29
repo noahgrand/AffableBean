@@ -62,6 +62,9 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "cc_number")
     private String ccNumber;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Collection<CustomerOrder> customerOrderCollection;
 
@@ -72,7 +75,7 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public Customer(Integer id, String name, String email, String phone, String address, String cityRegion, String ccNumber) {
+    public Customer(Integer id, String name, String email, String phone, String address, String cityRegion, String ccNumber, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -80,6 +83,7 @@ public class Customer implements Serializable {
         this.address = address;
         this.cityRegion = cityRegion;
         this.ccNumber = ccNumber;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -136,6 +140,14 @@ public class Customer implements Serializable {
 
     public void setCcNumber(String ccNumber) {
         this.ccNumber = ccNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Collection<CustomerOrder> getCustomerOrderCollection() {
