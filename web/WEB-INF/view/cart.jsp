@@ -115,6 +115,9 @@
                            name="submit"
                            value="<fmt:message key='update'/>">
                 </form>
+                <br />
+                
+                <fmt:formatNumber type="number">${product.stock}</fmt:formatNumber>
             </td>
           </tr>
 

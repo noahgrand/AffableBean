@@ -9,9 +9,11 @@
 package controller;
 
 import cart.ShoppingCart;
+import cart.ShoppingCartItem;
 import entity.Category;
 import entity.Product;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -41,7 +43,7 @@ import validate.Validator;
 public class ControllerServlet extends HttpServlet {
 
     private String surcharge;
-
+	
     @EJB
     private CategoryFacade categoryFacade;
     @EJB
@@ -108,8 +110,8 @@ public class ControllerServlet extends HttpServlet {
             String clear = request.getParameter("clear");
 
             if ((clear != null) && clear.equals("true")) {
-
                 ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+				resetReservations(cart);
                 cart.clear();
             }
 
@@ -118,7 +120,7 @@ public class ControllerServlet extends HttpServlet {
 
         // if checkout page is requested
         } else if (userPath.equals("/checkout")) {
-
+			
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
             // calculate total
@@ -200,13 +202,19 @@ public class ControllerServlet extends HttpServlet {
             String productId = request.getParameter("productId");
 
             if (!productId.isEmpty()) {
-
                 Product product = productFacade.find(Integer.parseInt(productId));
-                cart.addItem(product);
+				
+				if (product.getStock() > 0) {
+					updateStock(product, 1);
+					cart.addItem(product);
+				}
+				else{
+					// kein Bestand
+					System.out.println("Kein Bestand mehr.");
+				}
             }
-
+			
             userPath = "/category";
-
 
         // if updateCart action is called
         } else if (userPath.equals("/updateCart")) {
@@ -214,13 +222,21 @@ public class ControllerServlet extends HttpServlet {
             // get input from request
             String productId = request.getParameter("productId");
             String quantity = request.getParameter("quantity");
-
             boolean invalidEntry = validator.validateQuantity(productId, quantity);
+			Product product = productFacade.find(Integer.parseInt(productId));
 
             if (!invalidEntry) {
 
-                Product product = productFacade.find(Integer.parseInt(productId));
-                cart.update(product, quantity);
+				int newQuantity = (-quantityOfProductInCart(product, cart) + Integer.parseInt(quantity));
+
+				if (product.getStock() > newQuantity) {
+					updateStock(product, newQuantity);
+					cart.update(product, quantity);
+				}
+				else{
+					// Menge zu gross
+						System.out.println("KEIN BESTAND");
+				}
             }
 
             userPath = "/cart";
@@ -305,5 +321,32 @@ public class ControllerServlet extends HttpServlet {
             ex.printStackTrace();
         }
     }
+	
+	private void updateStock(Product product, int number){
+		int newStock = product.getStock() - number;
+		product.setStock(newStock);
+		productFacade.edit(product);
+	}
+	
+	public void resetReservations(ShoppingCart cart){
+		ArrayList<ShoppingCartItem> items = (ArrayList<ShoppingCartItem>) cart.getItems();
+		
+		for(ShoppingCartItem sci : items){
+			sci.getProduct().setStock((sci.getProduct().getStock() + sci.getQuantity()) - (sci.getQuantity() - 1));
+			productFacade.edit(sci.getProduct());
+		}
+	}
+	
+	private int quantityOfProductInCart(Product product, ShoppingCart cart){
+		ArrayList<ShoppingCartItem> items = (ArrayList<ShoppingCartItem>) cart.getItems();
+		
+		for(ShoppingCartItem sci : items){
+			if (sci.getProduct().equals(product)) {
+				return sci.getQuantity();
+			}
+		}
+			
+		return 0;
+	}
 
 }

@@ -69,10 +69,17 @@
                         <input type="hidden"
                                name="productId"
                                value="${product.id}">
-                        <input type="submit"
-                               name="submit"
-                               value="<fmt:message key='addToCart'/>">
+                        <c:if test="${product.stock > 0}">
+                            <input 
+                                   type="submit"
+                                   name="submit"
+                                   value="<fmt:message key='addToCart'/>">
+                        </c:if>
+                        <c:if test="${product.stock == 0}">
+                            <p style="color: red; font-weight: bold;">sold out</p>
+                        </c:if>
                     </form>
+                    <fmt:formatNumber type="number" value="${product.stock}"/>
                 </td>
             </tr>
 
