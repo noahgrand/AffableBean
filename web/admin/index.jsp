@@ -14,8 +14,98 @@
 
     <p><a href="<c:url value='viewOrders'/>">view all orders</a></p>
 
+    <p><a href="<c:url value='kategorienverwaltung'/>">Verwalte Kategorien</p>
+
+    <p><a href="<c:url value='artikelverwaltung'/>">Verwalte Artikel</p>
+
     <p><a href="<c:url value='logout'/>">log out</a></p>
+
+    <!--<p><a href="<c:url value='Kategorienverwaltung.jsp'/>">Verwalte Kategorien</p>-->
+   
 </div>
+
+<%-- artikelList is requested --%>
+<c:if test="${!empty artikelList}">
+
+	<form action="changeartikel">
+
+    <table id="adminTable" class="detailsTable">
+
+        <tr class="header">
+            <th colspan="4">categories</th>
+        </tr>
+
+        <tr class="tableHeading">
+            <td>artikel id</td>
+            <td>name</td>
+            <td>price</td>
+            <td>stock</td>
+            <td>category</td>
+        </tr>
+
+	<td><input type="submit" value="Änderungen übernehmen"/></td>
+	<td><input type="text" name="addthis.1" value="Neuer Artikel"/></td>
+	<td><input type="text" name="addthis.2" value="Price"/></td>
+	<td><input type="text" name="addthis.3" value="Stock"/></td>
+	<td><input type="text" name="addthis.4" value="Category"/></td>
+        <c:forEach var="artikel" items="${artikelList}" varStatus="iter">
+
+            <tr class="${((iter.index % 2) == 1) ? 'lightBlue' : 'white'} tableRow"
+		>
+
+              <%-- Below anchor tags are provided in case JavaScript is disabled --%>
+                <!--<td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.name}</a></td>!-->
+                <td><a href="artikelverwaltung?${artikel.id}" class="noDecoration">${artikel.id}</a></td>
+		<td><input type="text" name="${artikel.id}.1" value="${artikel.name}"></td>
+		<td><input type="text" name="${artikel.id}.2" value="${artikel.price}"></td>
+		<td><input type="text" name="${artikel.id}.3" value="${artikel.id}"></td>
+		<td><input type="text" name="${artikel.id}.4" value="${artikel.category.getName()}"></td>
+            </tr>
+
+        </c:forEach>
+    </table>
+
+	</form>	
+</c:if>
+
+<%-- categoryList is requested --%>
+<c:if test="${!empty categoryList}">
+
+	<form action="changekategorie">
+    <table id="adminTable" class="detailsTable">
+
+        <tr class="header">
+            <th colspan="4">categories</th>
+        </tr>
+
+        <tr class="tableHeading">
+            <td>category id</td>
+            <td>name</td>
+        </tr>
+
+        <c:forEach var="category" items="${categoryList}" varStatus="iter">
+
+            <tr class="${((iter.index % 2) == 1) ? 'lightBlue' : 'white'} tableRow"
+		>
+
+              <%-- Below anchor tags are provided in case JavaScript is disabled --%>
+                <!--<td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.name}</a></td>!-->
+                <td><a href="kategorienverwaltung?${category.id}" class="noDecoration">${category.id}</a></td>
+		<td><input type="text" name="${category.id}" value="${category.name}"></td>
+                <!--<td><input type="text" name="name" value="${category.name}" /></td>-->
+            </tr>
+
+        </c:forEach>
+	    <td><input type="text" name="addthis" value="Neue Kategorie"/></td>
+    </table>
+
+	<input type="submit" value="Änderungen übernehmen"/>
+	</form>	
+</c:if>
+
+
+
+
 
 <%-- customerList is requested --%>
 <c:if test="${!empty customerList}">
