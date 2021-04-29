@@ -169,13 +169,19 @@
                                   !fn:contains(pageContext.request.servletPath,'/checkout') &&
                                   requestScope['javax.servlet.forward.servlet_path'] ne '/checkout' &&
 
+                                  !fn:contains(pageContext.request.servletPath,'/login') &&
+                                  requestScope['javax.servlet.forward.servlet_path'] ne '/login' &&
+                                  
+                                  !fn:contains(pageContext.request.servletPath,'/registration') &&
+                                  requestScope['javax.servlet.forward.servlet_path'] ne '/registration' &&
+                                  
                                   !fn:contains(pageContext.request.servletPath,'/cart') &&
                                   requestScope['javax.servlet.forward.servlet_path'] ne '/cart' &&
 
                                   validationErrorFlag ne true &&
                                   orderFailureFlag ne true}">
 
-                      <a href="<c:url value='checkout'/>" class="bubble">
+                      <a href="<c:url value='loginpage'/>" class="bubble">
                         <fmt:message key="proceedCheckout"/>
                       </a>
                     </c:if>

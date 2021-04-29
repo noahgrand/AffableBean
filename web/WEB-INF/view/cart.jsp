@@ -61,7 +61,7 @@
 
         <%-- checkout widget --%>
         <c:if test="${!empty cart && cart.numberOfItems != 0}">
-            <a href="<c:url value='checkout'/>" class="bubble hMargin"><fmt:message key="proceedCheckout"/></a>
+            <a href="<c:url value='login'/>" class="bubble hMargin"><fmt:message key="loginUser"/></a>
         </c:if>
     </div>
 

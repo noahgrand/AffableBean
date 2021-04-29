@@ -28,6 +28,7 @@ CREATE  TABLE IF NOT EXISTS `affablebean`.`customer` (
   `address` VARCHAR(45) NOT NULL ,
   `city_region` VARCHAR(2) NOT NULL ,
   `cc_number` VARCHAR(19) NOT NULL ,
+  `password` VARCHAR(45) NOT NULL default 'pw1',
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 COMMENT = 'maintains customer details';
@@ -77,6 +78,7 @@ CREATE  TABLE IF NOT EXISTS `affablebean`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `price` DECIMAL(5,2) NOT NULL ,
+  `stock` INT UNSIGNED NOT NULL default 100,
 
   -- Delete after description is moved to resource bundle
   `description` TINYTEXT NULL ,
