@@ -53,6 +53,9 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "price")
     private BigDecimal price;
+	@Basic(optional = false)
+    @Column(name = "stock")
+    private Integer stock;
     @Basic(optional = false)
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
@@ -100,6 +103,14 @@ public class Product implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
 
     public Date getLastUpdate() {
         return lastUpdate;
