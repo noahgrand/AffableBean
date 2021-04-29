@@ -49,6 +49,8 @@ import validate.Validator;
 public class ControllerServlet extends HttpServlet {
 
     private String surcharge;
+    private String password;
+
 	
     @EJB
     private CategoryFacade categoryFacade;
@@ -220,6 +222,7 @@ public class ControllerServlet extends HttpServlet {
 			
             userPath = "/category";
 
+            // if updateCart action is called
         // if updateCart action is called
         } else if (userPath.equals("/updateCart")) {
 
