@@ -58,7 +58,7 @@
                 <td><a href="artikelverwaltung?${artikel.id}" class="noDecoration">${artikel.id}</a></td>
 		<td><input type="text" name="${artikel.id}.1" value="${artikel.name}"></td>
 		<td><input type="text" name="${artikel.id}.2" value="${artikel.price}"></td>
-		<td><input type="text" name="${artikel.id}.3" value="${artikel.id}"></td>
+		<td><input type="text" name="${artikel.id}.3" value="${artikel.stock}"></td>
 		<td><input type="text" name="${artikel.id}.4" value="${artikel.category.getName()}"></td>
             </tr>
 

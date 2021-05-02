@@ -105,7 +105,7 @@ public class AdminServlet extends HttpServlet {
 				//System.out.println(((entity.Category)categoryList.get(i)).getName()+" ::: "+request.getParameter(Integer.toString(i+1)) );
 				((entity.Product) artikelList.get(i)).setName(request.getParameter(Integer.toString(i + 1) + ".1"));
 				((entity.Product) artikelList.get(i)).setPrice(new BigDecimal(request.getParameter(Integer.toString(i + 1) + ".2")));
-//setStock				((entity.Product) artikelList.get(i)).setName(request.getParameter(Integer.toString(i + 1) + ".1"));
+				((entity.Product) artikelList.get(i)).setStock(Integer.parseInt(request.getParameter(Integer.toString(i + 1) + ".3")));
 				Category requestedOne= null;
 				for(Category c: categoryFacade.findAll()){
 					if(c.getName().equals(request.getParameter(Integer.toString(i+1)+".4"))){
@@ -131,7 +131,7 @@ public class AdminServlet extends HttpServlet {
 //				tempProd.setId(Integer.parseInt(newId.toString()));
 				tempProd.setName(request.getParameter("addthis.1"));
 				tempProd.setPrice(new BigDecimal(request.getParameter("addthis.2")));
-//When stock is implemented	tempProd.setStock(request.getParameter("addthis.3"));
+				tempProd.setStock(Integer.parseInt(request.getParameter("addthis.3")));
 				Category tempCat=null;
 				for(Category c: categoryFacade.findAll()){
 				if(c.getName().equals(request.getParameter("addthis.4"))){
