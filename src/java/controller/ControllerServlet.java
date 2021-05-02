@@ -223,7 +223,6 @@ public class ControllerServlet extends HttpServlet {
             userPath = "/category";
 
             // if updateCart action is called
-        // if updateCart action is called
         } else if (userPath.equals("/updateCart")) {
 
             // get input from request
