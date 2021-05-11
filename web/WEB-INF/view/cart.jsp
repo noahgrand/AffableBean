@@ -61,7 +61,7 @@
 
         <%-- checkout widget --%>
         <c:if test="${!empty cart && cart.numberOfItems != 0}">
-            <a href="<c:url value='login'/>" class="bubble hMargin"><fmt:message key="loginUser"/></a>
+            <a href="<c:url value='loginpage'/>" class="bubble hMargin"><fmt:message key="loginUser"/></a>
         </c:if>
     </div>
 
@@ -115,6 +115,9 @@
                            name="submit"
                            value="<fmt:message key='update'/>">
                 </form>
+                <br />
+                
+                <fmt:formatNumber type="number">${product.stock}</fmt:formatNumber>
             </td>
           </tr>
 

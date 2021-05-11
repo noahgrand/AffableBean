@@ -16,7 +16,7 @@ import entity.Product;
  */
 public class ShoppingCartItem {
 
-    Product product;
+    entity.Product product;
     short quantity;
 
     public ShoppingCartItem(Product product) {
